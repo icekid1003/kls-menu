@@ -78,7 +78,9 @@
     Total: NGN <span id="total">0</span>
   </div>
 
-  <button onclick="sendReceiptToWhatsApp()">Send Receipt on WhatsApp</button>
+  <button onclick="showReceipt()">Preview Receipt</button>
+<button onclick="sendReceiptToWhatsApp()">Send Receipt on WhatsApp</button>
+
 
 </div>
 
@@ -164,14 +166,20 @@ function showReceipt() {
 }
 
 function sendReceiptToWhatsApp() {
-  // Open WhatsApp chat ONLY (no prices in text)
+  if (receipt.style.display === "none") {
+    alert("Please preview the receipt first");
+    return;
+  }
+
   const message = "Hello KLS Apartment Lounge, I have sent my order receipt image.";
   const encoded = encodeURIComponent(message);
+
   window.open(
     "https://wa.me/2348093823277?text=" + encoded,
     "_blank"
   );
 }
+
 </script>
 
 
