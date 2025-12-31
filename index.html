@@ -6,17 +6,17 @@
     <h2>Drinks</h2>
 
     <label><input type="checkbox" data-name="Origin Bottle" data-price="1500"> Origin Bottle – ₦1,500</label>
-    <label><input type="checkbox" data-name="Star" data-price="1200"> Star – ₦1,200</label>
-    <label><input type="checkbox" data-name="Gulder" data-price="1200"> Gulder – ₦1,200</label>
-    <label><input type="checkbox" data-name="Heineken" data-price="1500"> Heineken – ₦1,500</label>
+    <label><input type="checkbox" data-name="Star" data-price="1200"> Star – ₦1,500</label>
+    <label><input type="checkbox" data-name="Gulder" data-price="1200"> Gulder – ₦1,500</label>
+    <label><input type="checkbox" data-name="Heineken" data-price="1500"> Heineken – ₦2,000</label>
     <label><input type="checkbox" data-name="Trophy" data-price="1200"> Trophy – ₦1,200</label>
     <label><input type="checkbox" data-name="Smirnoff Ice" data-price="1500"> Smirnoff Ice – ₦1,500</label>
     <label><input type="checkbox" data-name="Big Stout" data-price="1500"> Big Stout – ₦1,500</label>
     <label><input type="checkbox" data-name="Small Stout" data-price="1000"> Small Stout – ₦1,000</label>
     <label><input type="checkbox" data-name="Budweiser" data-price="1500"> Budweiser – ₦1,500</label>
     <label><input type="checkbox" data-name="Origin Can" data-price="1200"> Origin Can – ₦1,200</label>
-    <label><input type="checkbox" data-name="Hollandia" data-price="800"> Hollandia – ₦800</label>
-    <label><input type="checkbox" data-name="Bullet Can" data-price="1000"> Bullet Can – ₦1,000</label>
+    <label><input type="checkbox" data-name="Hollandia" data-price="2,500"> Hollandia – ₦2,500</label>
+    <label><input type="checkbox" data-name="Bullet Can" data-price="1500"> Bullet Can – ₦1500</label>
     <label><input type="checkbox" data-name="Exotic Drink" data-price="3000"> Exoctic – ₦3,000</label>
 
     <h2>Spirits</h2>
@@ -32,10 +32,10 @@
 
     <h2>Energy & Soft Drinks</h2>
 
-    <label><input type="checkbox" data-name="Sierra" data-price="1000"> Sierra – ₦1,000</label>
-    <label><input type="checkbox" data-name="Red Bull" data-price="1500"> Red Bull – ₦1,500</label>
-    <label><input type="checkbox" data-name="Cranberry" data-price="1000"> Cranberry – ₦1,000</label>
-    <label><input type="checkbox" data-name="Water" data-price="500"> Water – ₦500</label>
+    <label><input type="checkbox" data-name="Sierra" data-price="15,000"> Sierra – ₦15,000</label>
+    <label><input type="checkbox" data-name="Red Bull" data-price="2,000"> Red Bull – ₦2,000</label>
+    <label><input type="checkbox" data-name="Cranberry" data-price="6,500"> Cranberry – ₦6,500</label>
+    <label><input type="checkbox" data-name="Water" data-price="300"> Water – ₦300</label>
 
     <h2>Food</h2>
 
@@ -124,20 +124,18 @@ function sendWhatsApp() {
 
   items.forEach(item => {
     if (item.checked) {
-      let name = item.dataset.name;
-      let price = Number(item.dataset.price);
+      const name = item.dataset.name;
+      const price = Number(item.dataset.price);
 
-      message += `- ${name} - ₦${price.toLocaleString()}%0A`;
+      message += `- ${name} - NGN ${price}%0A`;
       total += price;
     }
   });
 
   message += `%0A--------------------%0A`;
-  message += `Total: ₦${total.toLocaleString()}`;
+  message += `Total: NGN ${total}`;
 
   const phone = "2348093823277";
-  const url = `https://wa.me/${phone}?text=${message}`;
-
-  window.open(url, "_blank");
+  window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
 }
 </script>
