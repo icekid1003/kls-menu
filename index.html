@@ -1,129 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>KLS Apartment Lounge</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: #fff;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+      color: gold;
+    }
+    label {
+      display: block;
+      margin: 6px 0;
+    }
+    .total {
+      margin-top: 15px;
+      font-size: 20px;
+      text-align: center;
+    }
+    button {
+      width: 100%;
+      padding: 15px;
+      margin-top: 15px;
+      font-size: 18px;
+      background: green;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
 <h1>KLS Apartment Lounge</h1>
 
 <h2>Spirits</h2>
 
-<label>
-  <input type="checkbox" data-name="Jack Williams" data-price="12000">
-  1. Jack Williams - NGN 12000
-</label><br>
-
-<label>
-  <input type="checkbox" data-name="Gordons" data-price="7000">
-  2. Gordons - NGN 7000
-</label><br>
-
-<label>
-  <input type="checkbox" data-name="Gordons Colour" data-price="9000">
-  3. Gordons Colour - NGN 9000
-</label><br>
-
-<label>
-  <input type="checkbox" data-name="Rich Man" data-price="6000">
-  4. Rich Man - NGN 6000
-</label><br>
-
-<label>
-  <input type="checkbox" data-name="Fonda Real" data-price="6000">
-  5. Fonda Real - NGN 6000
-</label><br>
-
-<label>
-  <input type="checkbox" data-name="Majesty" data-price="7000">
-  6. Majesty - NGN 7000
-</label><br>
-
-<label>
-  <input type="checkbox" data-name="Martell VSOP" data-price="55000">
-  7. Martell VSOP - NGN 55000
-</label><br>
-
-<label>
-  <input type="checkbox" data-name="Martell Blue Swift" data-price="60000">
-  8. Martell Blue Swift - NGN 60000
-</label>
+<label><input type="checkbox" data-name="Jack Williams" data-price="12000"> 1. Jack Williams - NGN 12000</label>
+<label><input type="checkbox" data-name="Gordons" data-price="7000"> 2. Gordons - NGN 7000</label>
+<label><input type="checkbox" data-name="Gordons Colour" data-price="9000"> 3. Gordons Colour - NGN 9000</label>
+<label><input type="checkbox" data-name="Rich Man" data-price="6000"> 4. Rich Man - NGN 6000</label>
+<label><input type="checkbox" data-name="Fonda Real" data-price="6000"> 5. Fonda Real - NGN 6000</label>
+<label><input type="checkbox" data-name="Majesty" data-price="7000"> 6. Majesty - NGN 7000</label>
+<label><input type="checkbox" data-name="Martell VSOP" data-price="55000"> 7. Martell VSOP - NGN 55000</label>
+<label><input type="checkbox" data-name="Martell Blue Swift" data-price="60000"> 8. Martell Blue Swift - NGN 60000</label>
 
 <hr>
 
 <h2>Soft & Energy Drinks</h2>
 
-<label>
-  <input type="checkbox" data-name="Sierra" data-price="1000">
-  9. Sierra - NGN 1000
-</label><br>
+<label><input type="checkbox" data-name="Sierra" data-price="1000"> 9. Sierra - NGN 1000</label>
+<label><input type="checkbox" data-name="Red Bull" data-price="1500"> 10. Red Bull - NGN 1500</label>
+<label><input type="checkbox" data-name="Cranberry" data-price="1000"> 11. Cranberry - NGN 1000</label>
+<label><input type="checkbox" data-name="Water" data-price="500"> 12. Water - NGN 500</label>
 
-<label>
-  <input type="checkbox" data-name="Red Bull" data-price="1500">
-  10. Red Bull - NGN 1500
-</label><br>
+<div class="total">
+  Total: NGN <span id="total">0</span>
+</div>
 
-<label>
-  <input type="checkbox" data-name="Cranberry" data-price="1000">
-  11. Cranberry - NGN 1000
-</label><br>
-
-<label>
-  <input type="checkbox" data-name="Water" data-price="500">
-  12. Water - NGN 500
-</label>
-
-<hr>
-
-<h3>Total: NGN <span id="total">0</span></h3>
 <button onclick="sendOrder()">Order on WhatsApp</button>
+
 <script>
-const boxes = document.querySelectorAll("input[type='checkbox']");
-const totalSpan = document.getElementById("total");
+  const checkboxes = document.querySelectorAll("input[type='checkbox']");
+  const totalSpan = document.getElementById("total");
 
-function updateTotal() {
-  let total = 0;
-
-  boxes.forEach(box => {
-    if (box.checked) {
-      const price = parseInt(box.dataset.price, 10);
-      if (!isNaN(price)) {
-        total += price;
+  function updateTotal() {
+    let total = 0;
+    checkboxes.forEach(box => {
+      if (box.checked) {
+        const price = parseInt(box.dataset.price, 10);
+        if (!isNaN(price)) {
+          total += price;
+        }
       }
-    }
-  });
-
-  totalSpan.textContent = total;
-}
-
-boxes.forEach(box => {
-  box.addEventListener("change", updateTotal);
-});
-
-function sendOrder() {
-  let message = "KLS Apartment Lounge Order\n\n";
-  let total = 0;
-
-  boxes.forEach(box => {
-    if (box.checked) {
-      const name = box.dataset.name;
-      const price = parseInt(box.dataset.price, 10);
-
-      if (!isNaN(price)) {
-        message += "- " + name + " : NGN " + price + "\n";
-        total += price;
-      }
-    }
-  });
-
-  if (total === 0) {
-    alert("Please select at least one item");
-    return;
+    });
+    totalSpan.textContent = total;
   }
 
-  message += "\nTotal: NGN " + total;
+  checkboxes.forEach(box => {
+    box.addEventListener("change", updateTotal);
+  });
 
-  const encoded = encodeURIComponent(message);
-  window.open(
-    "https://wa.me/2348093823277?text=" + encoded,
-    "_blank"
-  );
-}
+  function sendOrder() {
+    let message = "KLS Apartment Lounge Order\n\n";
+    let total = 0;
+
+    checkboxes.forEach(box => {
+      if (box.checked) {
+        const name = box.dataset.name;
+        const price = parseInt(box.dataset.price, 10);
+        if (!isNaN(price)) {
+          message += "- " + name + " : NGN " + price + "\n";
+          total += price;
+        }
+      }
+    });
+
+    if (total === 0) {
+      alert("Please select at least one item");
+      return;
+    }
+
+    message += "\nTotal: NGN " + total;
+
+    const encodedMessage = encodeURIComponent(message);
+    window.open(
+      "https://wa.me/2348093823277?text=" + encodedMessage,
+      "_blank"
+    );
+  }
 </script>
 
-
-
-<button onclick="sendOrder()">Order on WhatsApp</button>
+</body>
+</html>
