@@ -116,35 +116,27 @@
 </style>
 
 <script>
+function sendWhatsApp() {
+  let order = "Hello KLS Apartment Lounge,%0A%0AI want to order:%0A";
+  let total = 0;
+
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-  const totalPrice = document.getElementById('totalPrice');
 
   checkboxes.forEach(cb => {
-    cb.addEventListener('change', calculateTotal);
+    if (cb.checked) {
+      let price = Number(cb.dataset.price);
+      order += `- ${cb.dataset.name} — ₦${price.toLocaleString()}%0A`;
+      total += price;
+    }
   });
 
-  function calculateTotal() {
-    let total = 0;
-    checkboxes.forEach(cb => {
-      if (cb.checked) {
-        total += Number(cb.dataset.price);
-      }
-    });
-    totalPrice.textContent = total.toLocaleString();
-  }
+  order += `%0A------------------%0A`;
+  order += `Total: ₦${total.toLocaleString()}`;
 
-  function sendWhatsApp() {
-    let order = "Hello KLS Apartment Lounge, I want to order:%0A";
-    let total = 0;
-
-    checkboxes.forEach(cb => {
-      if (cb.checked) {
-        order += `- ${cb.dataset.name} (₦${cb.dataset.price})%0A`;
-        total += Number(cb.dataset.price);
-      }
-    });
-
-    order += `%0ATotal: ₦${total.toLocaleString()}`;
-    window.open(`https://wa.me/2348093823277?text=${order}`, "_blank");
-  }
+  window.open(
+    `https://wa.me/2348093823277?text=${order}`,
+    "_blank"
+  );
+}
 </script>
+
