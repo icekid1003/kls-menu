@@ -38,13 +38,14 @@
     <label><input type="checkbox" data-name="Cranberry" data-price="1000"> Cranberry – 1,000</label>
     <label><input type="checkbox" data-name="Water" data-price="500"> Water – 500</label>
 
-    <div class="total">
-      <strong>Total: NGN <span id="totalPrice">0</span></strong>
-    </div>
-
-    <button type="button" onclick="sendWhatsApp()">Order on WhatsApp</button>
-  </form>
+ <div id="receipt" style="display:none; background:#fff; color:#000; padding:20px; max-width:300px; font-family:Arial;">
+  <h3 style="text-align:center;">KLS Apartment Lounge</h3>
+  <div id="receiptItems"></div>
+  <hr>
+  <strong>Total: NGN <span id="receiptTotal"></span></strong>
+  <p style="font-size:12px;">Show this receipt to staff or send on WhatsApp</p>
 </div>
+
 
 <style>
   body {
@@ -93,25 +94,15 @@
 ### ✅ PASTE THIS **ONLY SCRIPT**
 
 ```html
+
 <script>
 const boxes = document.querySelectorAll("input[type='checkbox']");
-const totalSpan = document.getElementById("totalPrice");
+const receipt = document.getElementById("receipt");
+const receiptItems = document.getElementById("receiptItems");
+const receiptTotal = document.getElementById("receiptTotal");
 
-function updateTotal() {
-  let total = 0;
-  boxes.forEach(box => {
-    if (box.checked) {
-      const price = parseInt(box.dataset.price, 10);
-      if (!isNaN(price)) total += price;
-    }
-  });
-  totalSpan.textContent = total;
-}
-
-boxes.forEach(box => box.addEventListener("change", updateTotal));
-
-function sendWhatsApp() {
-  let lines = [];
+function openReceipt() {
+  receiptItems.innerHTML = "";
   let total = 0;
 
   boxes.forEach(box => {
@@ -120,32 +111,21 @@ function sendWhatsApp() {
       const price = parseInt(box.dataset.price, 10);
 
       if (!isNaN(price)) {
-        lines.push(`${name} - NGN ${price}`);
+        const line = document.createElement("div");
+        line.textContent = `${name} - NGN ${price}`;
+        receiptItems.appendChild(line);
         total += price;
       }
     }
   });
 
-  if (lines.length === 0) {
+  if (total === 0) {
     alert("Please select at least one drink");
     return;
   }
 
-  // ✅ WHATSAPP CODE BLOCK (NO FORMATTING BUGS)
-  const message =
-"```" +
-"\nKLS Apartment Lounge Order\n\n" +
-lines.join("\n") +
-"\n\n--------------------\n" +
-"Total: NGN " + total +
-"\n```";
-
-  const encoded = encodeURIComponent(message);
-
-  window.open(
-    "https://wa.me/2348093823277?text=" + encoded,
-    "_blank"
-  );
+  receiptTotal.textContent = total;
+  receipt.style.display = "block";
 }
 </script>
 
