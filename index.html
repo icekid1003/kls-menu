@@ -3,26 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <title>KLS Apartment Lounge</title>
+  <!-- ===== CSS ===== -->
   <style>
     body {
+      margin: 0;
+      padding: 20px;
       font-family: Arial, sans-serif;
       background: #000;
       color: #fff;
-      padding: 20px;
     }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #111;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
     h1, h2 {
       text-align: center;
       color: gold;
     }
+
     label {
       display: block;
-      margin: 6px 0;
+      padding: 6px 0;
+      cursor: pointer;
     }
+
+    hr {
+      margin: 20px 0;
+      border: 1px solid #333;
+    }
+
     .total {
-      margin-top: 15px;
-      font-size: 20px;
       text-align: center;
+      font-size: 20px;
+      margin-top: 15px;
     }
+
     button {
       width: 100%;
       padding: 15px;
@@ -31,7 +51,12 @@
       background: green;
       color: white;
       border: none;
+      border-radius: 6px;
       cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
     }
   </style>
 </head>
@@ -60,18 +85,21 @@
 <label><input type="checkbox" data-name="Cranberry" data-price="1000"> 11. Cranberry - NGN 1000</label>
 <label><input type="checkbox" data-name="Water" data-price="500"> 12. Water - NGN 500</label>
 
-<div class="total">
-  Total: NGN <span id="total">0</span>
+    <div class="total">
+    Total: NGN <span id="total">0</span>
+  </div>
+
+  <button onclick="sendOrder()">Order on WhatsApp</button>
 </div>
 
-<button onclick="sendOrder()">Order on WhatsApp</button>
-
+<!-- ===== JAVASCRIPT ===== -->
 <script>
   const checkboxes = document.querySelectorAll("input[type='checkbox']");
   const totalSpan = document.getElementById("total");
 
   function updateTotal() {
     let total = 0;
+
     checkboxes.forEach(box => {
       if (box.checked) {
         const price = parseInt(box.dataset.price, 10);
@@ -80,6 +108,7 @@
         }
       }
     });
+
     totalSpan.textContent = total;
   }
 
@@ -95,6 +124,7 @@
       if (box.checked) {
         const name = box.dataset.name;
         const price = parseInt(box.dataset.price, 10);
+
         if (!isNaN(price)) {
           message += "- " + name + " : NGN " + price + "\n";
           total += price;
@@ -109,9 +139,9 @@
 
     message += "\nTotal: NGN " + total;
 
-    const encodedMessage = encodeURIComponent(message);
+    const encoded = encodeURIComponent(message);
     window.open(
-      "https://wa.me/2348093823277?text=" + encodedMessage,
+      "https://wa.me/2348093823277?text=" + encoded,
       "_blank"
     );
   }
@@ -119,3 +149,5 @@
 
 </body>
 </html>
+
+
