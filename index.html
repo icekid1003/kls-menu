@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>KLS Apartment Lounge</title>
-  <!-- ===== CSS ===== -->
+
   <style>
     body {
       margin: 0;
@@ -12,7 +12,6 @@
       background: #000;
       color: #fff;
     }
-
     .container {
       max-width: 600px;
       margin: auto;
@@ -20,29 +19,24 @@
       padding: 20px;
       border-radius: 10px;
     }
-
     h1, h2 {
       text-align: center;
       color: gold;
     }
-
     label {
       display: block;
       padding: 6px 0;
       cursor: pointer;
     }
-
     hr {
       margin: 20px 0;
       border: 1px solid #333;
     }
-
     .total {
       text-align: center;
       font-size: 20px;
       margin-top: 15px;
     }
-
     button {
       width: 100%;
       padding: 15px;
@@ -54,100 +48,91 @@
       border-radius: 6px;
       cursor: pointer;
     }
-
-    button:hover {
-      opacity: 0.9;
-    }
   </style>
 </head>
 
 <body>
 
-<h1>KLS Apartment Lounge</h1>
+<div class="container">
+  <h1>KLS Apartment Lounge</h1>
 
-<h2>Spirits</h2>
+  <h2>Spirits</h2>
+  <label><input type="checkbox" data-name="Jack Williams" data-price="12000"> Jack Williams - NGN 12000</label>
+  <label><input type="checkbox" data-name="Gordons" data-price="7000"> Gordons - NGN 7000</label>
+  <label><input type="checkbox" data-name="Gordons Colour" data-price="9000"> Gordons Colour - NGN 9000</label>
+  <label><input type="checkbox" data-name="Rich Man" data-price="6000"> Rich Man - NGN 6000</label>
+  <label><input type="checkbox" data-name="Fonda Real" data-price="6000"> Fonda Real - NGN 6000</label>
+  <label><input type="checkbox" data-name="Majesty" data-price="7000"> Majesty - NGN 7000</label>
+  <label><input type="checkbox" data-name="Martell VSOP" data-price="55000"> Martell VSOP - NGN 55000</label>
+  <label><input type="checkbox" data-name="Martell Blue Swift" data-price="60000"> Martell Blue Swift - NGN 60000</label>
 
-<label><input type="checkbox" data-name="Jack Williams" data-price="12000"> 1. Jack Williams - NGN 12000</label>
-<label><input type="checkbox" data-name="Gordons" data-price="7000"> 2. Gordons - NGN 7000</label>
-<label><input type="checkbox" data-name="Gordons Colour" data-price="9000"> 3. Gordons Colour - NGN 9000</label>
-<label><input type="checkbox" data-name="Rich Man" data-price="6000"> 4. Rich Man - NGN 6000</label>
-<label><input type="checkbox" data-name="Fonda Real" data-price="6000"> 5. Fonda Real - NGN 6000</label>
-<label><input type="checkbox" data-name="Majesty" data-price="7000"> 6. Majesty - NGN 7000</label>
-<label><input type="checkbox" data-name="Martell VSOP" data-price="55000"> 7. Martell VSOP - NGN 55000</label>
-<label><input type="checkbox" data-name="Martell Blue Swift" data-price="60000"> 8. Martell Blue Swift - NGN 60000</label>
+  <hr>
 
-<hr>
+  <h2>Soft & Energy Drinks</h2>
+  <label><input type="checkbox" data-name="Sierra" data-price="1000"> Sierra - NGN 1000</label>
+  <label><input type="checkbox" data-name="Red Bull" data-price="1500"> Red Bull - NGN 1500</label>
+  <label><input type="checkbox" data-name="Cranberry" data-price="1000"> Cranberry - NGN 1000</label>
+  <label><input type="checkbox" data-name="Water" data-price="500"> Water - NGN 500</label>
 
-<h2>Soft & Energy Drinks</h2>
-
-<label><input type="checkbox" data-name="Sierra" data-price="1000"> 9. Sierra - NGN 1000</label>
-<label><input type="checkbox" data-name="Red Bull" data-price="1500"> 10. Red Bull - NGN 1500</label>
-<label><input type="checkbox" data-name="Cranberry" data-price="1000"> 11. Cranberry - NGN 1000</label>
-<label><input type="checkbox" data-name="Water" data-price="500"> 12. Water - NGN 500</label>
-
-    <div class="total">
+  <div class="total">
     Total: NGN <span id="total">0</span>
   </div>
 
-  <button onclick="sendOrder()">Order on WhatsApp</button>
+  <button onclick="showReceipt()">Preview Receipt</button>
 </div>
 
-<!-- ===== JAVASCRIPT ===== -->
+<!-- RECEIPT -->
+<div id="receipt" style="display:none; background:#fff; color:#000; padding:20px; max-width:320px; margin:20px auto; font-family:Arial;">
+  <h3 style="text-align:center;">KLS Apartment Lounge</h3>
+  <div id="receiptItems"></div>
+  <hr>
+  <strong>Total: NGN <span id="receiptTotal"></span></strong>
+  <p style="font-size:12px; text-align:center;">Screenshot & send on WhatsApp</p>
+</div>
+
 <script>
-  const checkboxes = document.querySelectorAll("input[type='checkbox']");
-  const totalSpan = document.getElementById("total");
+const boxes = document.querySelectorAll("input[type='checkbox']");
+const totalSpan = document.getElementById("total");
+const receipt = document.getElementById("receipt");
+const receiptItems = document.getElementById("receiptItems");
+const receiptTotal = document.getElementById("receiptTotal");
 
-  function updateTotal() {
-    let total = 0;
+function updateTotal() {
+  let total = 0;
+  boxes.forEach(box => {
+    if (box.checked) {
+      const price = parseInt(box.dataset.price, 10);
+      if (!isNaN(price)) total += price;
+    }
+  });
+  totalSpan.textContent = total;
+}
 
-    checkboxes.forEach(box => {
-      if (box.checked) {
-        const price = parseInt(box.dataset.price, 10);
-        if (!isNaN(price)) {
-          total += price;
-        }
+boxes.forEach(box => box.addEventListener("change", updateTotal));
+
+function showReceipt() {
+  receiptItems.innerHTML = "";
+  let total = 0;
+
+  boxes.forEach(box => {
+    if (box.checked) {
+      const price = parseInt(box.dataset.price, 10);
+      if (!isNaN(price)) {
+        receiptItems.innerHTML += `<div>${box.dataset.name} - NGN ${price}</div>`;
+        total += price;
       }
-    });
-
-    totalSpan.textContent = total;
-  }
-
-  checkboxes.forEach(box => {
-    box.addEventListener("change", updateTotal);
+    }
   });
 
-  function sendOrder() {
-    let message = "KLS Apartment Lounge Order\n\n";
-    let total = 0;
-
-    checkboxes.forEach(box => {
-      if (box.checked) {
-        const name = box.dataset.name;
-        const price = parseInt(box.dataset.price, 10);
-
-        if (!isNaN(price)) {
-          message += "- " + name + " : NGN " + price + "\n";
-          total += price;
-        }
-      }
-    });
-
-    if (total === 0) {
-      alert("Please select at least one item");
-      return;
-    }
-
-    message += "\nTotal: NGN " + total;
-
-    const encoded = encodeURIComponent(message);
-    window.open(
-      "https://wa.me/2348093823277?text=" + encoded,
-      "_blank"
-    );
+  if (total === 0) {
+    alert("Please select at least one item");
+    return;
   }
+
+  receiptTotal.textContent = total;
+  receipt.style.display = "block";
+}
 </script>
 
 </body>
 </html>
-
-
