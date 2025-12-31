@@ -85,63 +85,59 @@
   }
 </style>
 <script>
-const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-const totalPrice = document.getElementById('totalPrice');
+const boxes = document.querySelectorAll('input[type="checkbox"]');
+const totalSpan = document.getElementById('totalPrice');
 
-checkboxes.forEach(box => {
-  box.addEventListener('change', calculateTotal);
-});
+boxes.forEach(b => b.addEventListener('change', updateTotal));
 
-function calculateTotal() {
+function updateTotal() {
   let total = 0;
-
-  checkboxes.forEach(box => {
-    const price = Number(box.dataset.price);
-    if (box.checked && !isNaN(price)) {
+  boxes.forEach(b => {
+    const price = parseInt(b.dataset.price, 10);
+    if (b.checked && !isNaN(price)) {
       total += price;
     }
   });
-
-  totalPrice.textContent = total;
+  totalSpan.textContent = total;
 }
 
 function sendWhatsApp() {
-  let lines = [];
+  let orderLines = [];
   let total = 0;
 
-  checkboxes.forEach(box => {
-    if (box.checked) {
-      const name = box.dataset.name;
-      const price = Number(box.dataset.price);
+  boxes.forEach(b => {
+    if (b.checked) {
+      const name = b.dataset.name;
+      const price = parseInt(b.dataset.price, 10);
 
       if (!isNaN(price)) {
-        lines.push(`- ${name} - NGN ${price}`);
+        orderLines.push(`- ${name} - NGN ${price}`);
         total += price;
       }
     }
   });
 
-  if (lines.length === 0) {
+  if (orderLines.length === 0) {
     alert("Please select at least one drink");
     return;
   }
 
-  let message =
-    "Hello KLS Apartment Lounge,\n\n" +
-    "I want to order:\n" +
-    lines.join("\n") +
-    "\n\n--------------------\n" +
-    "Total: NGN " + total;
+  const message =
+`Hello KLS Apartment Lounge,
 
-  const phone = "2348093823277";
+I want to order:
+${orderLines.join("\n")}
 
-  // ✅ THIS IS THE MOST IMPORTANT LINE
-  const encodedMessage = encodeURIComponent(message);
+--------------------
+Total: NGN ${total}`;
+
+  const encoded = encodeURIComponent(message);
 
   window.open(
-    `https://wa.me/${phone}?text=${encodedMessage}`,
+    "https://wa.me/2348093823277?text=" + encoded,
     "_blank"
   );
 }
 </script>
+
 
