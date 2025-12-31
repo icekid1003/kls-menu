@@ -77,13 +77,9 @@
   <div class="total">
     Total: NGN <span id="total">0</span>
   </div>
-
   <button onclick="showReceipt()">Preview Receipt</button>
 <button onclick="sendReceiptToWhatsApp()">Send Receipt on WhatsApp</button>
-
-
 </div>
-
 <!-- RECEIPT -->
 <div id="receipt" style="
   display:none;
@@ -118,8 +114,6 @@
     Screenshot & send on WhatsApp
   </p>
 </div>
-
-  
   <script>
 const boxes = document.querySelectorAll("input[type='checkbox']");
 const totalSpan = document.getElementById("total");
@@ -162,8 +156,9 @@ function showReceipt() {
   }
 
   receiptTotal.textContent = total;
-  receipt.style.display = "block";
+  receipt.style.display = "block"; // ✅ CORRECT PLACE
 }
+
 
 function sendReceiptToWhatsApp() {
   if (receipt.style.display === "none") {
