@@ -38,14 +38,33 @@
     <label><input type="checkbox" data-name="Cranberry" data-price="1000"> Cranberry – 1,000</label>
     <label><input type="checkbox" data-name="Water" data-price="500"> Water – 500</label>
 
- <div id="receipt" style="display:none; background:#fff; color:#000; padding:20px; max-width:300px; font-family:Arial;">
-  <h3 style="text-align:center;">KLS Apartment Lounge</h3>
-  <div id="receiptItems"></div>
-  <hr>
-  <strong>Total: NGN <span id="receiptTotal"></span></strong>
-  <p style="font-size:12px;">Show this receipt to staff or send on WhatsApp</p>
-</div>
+<div class="menu">
+  <h1>KLS Apartment Lounge</h1>
 
+  <label>
+    <input type="checkbox" data-name="Origin Bottle" data-price="1500">
+    1. Origin Bottle - NGN 1500
+  </label>
+
+  <label>
+    <input type="checkbox" data-name="Gulder" data-price="1200">
+    2. Gulder - NGN 1200
+  </label>
+
+  <label>
+    <input type="checkbox" data-name="Rich Man" data-price="6000">
+    3. Rich Man - NGN 6000
+  </label>
+
+  <label>
+    <input type="checkbox" data-name="Sierra" data-price="1000">
+    4. Sierra - NGN 1000
+  </label>
+
+  <h3>Total: NGN <span id="total">0</span></h3>
+
+  <button onclick="sendOrder()">Order on WhatsApp</button>
+</div>
 
 <style>
   body {
@@ -94,26 +113,40 @@
 ### ✅ PASTE THIS **ONLY SCRIPT**
 
 ```html
-
 <script>
-const boxes = document.querySelectorAll("input[type='checkbox']");
-const receipt = document.getElementById("receipt");
-const receiptItems = document.getElementById("receiptItems");
-const receiptTotal = document.getElementById("receiptTotal");
+const checkboxes = document.querySelectorAll("input[type='checkbox']");
+const totalSpan = document.getElementById("total");
 
-function openReceipt() {
-  receiptItems.innerHTML = "";
+function calculateTotal() {
   let total = 0;
 
-  boxes.forEach(box => {
+  checkboxes.forEach(box => {
+    if (box.checked) {
+      const price = Number(box.dataset.price);
+      if (!isNaN(price)) {
+        total += price;
+      }
+    }
+  });
+
+  totalSpan.textContent = total;
+}
+
+checkboxes.forEach(box => {
+  box.addEventListener("change", calculateTotal);
+});
+
+function sendOrder() {
+  let message = "KLS Apartment Lounge Order\n\n";
+  let total = 0;
+
+  checkboxes.forEach(box => {
     if (box.checked) {
       const name = box.dataset.name;
-      const price = parseInt(box.dataset.price, 10);
+      const price = Number(box.dataset.price);
 
       if (!isNaN(price)) {
-        const line = document.createElement("div");
-        line.textContent = `${name} - NGN ${price}`;
-        receiptItems.appendChild(line);
+        message += "- " + name + " : NGN " + price + "\n";
         total += price;
       }
     }
@@ -124,9 +157,15 @@ function openReceipt() {
     return;
   }
 
-  receiptTotal.textContent = total;
-  receipt.style.display = "block";
+  message += "\nTotal: NGN " + total;
+
+  const encoded = encodeURIComponent(message);
+  window.open(
+    "https://wa.me/2348093823277?text=" + encoded,
+    "_blank"
+  );
 }
 </script>
+
 
 
