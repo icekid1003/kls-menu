@@ -17,7 +17,7 @@
     <label><input type="checkbox" data-name="Origin Can" data-price="1200"> Origin Can – ₦1,200</label>
     <label><input type="checkbox" data-name="Hollandia" data-price="800"> Hollandia – ₦800</label>
     <label><input type="checkbox" data-name="Bullet Can" data-price="1000"> Bullet Can – ₦1,000</label>
-    <label><input type="checkbox" data-name="Exotic Drink" data-price="3000"> Exotic – ₦3,000</label>
+    <label><input type="checkbox" data-name="Exotic Drink" data-price="3000"> Exoctic – ₦3,000</label>
 
     <h2>Spirits</h2>
 
@@ -117,26 +117,27 @@
 
 <script>
 function sendWhatsApp() {
-  let order = "Hello KLS Apartment Lounge,%0A%0AI want to order:%0A";
+  let message = "Hello KLS Apartment Lounge,%0A%0AI want to order:%0A";
   let total = 0;
 
-  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  const items = document.querySelectorAll('input[type="checkbox"]');
 
-  checkboxes.forEach(cb => {
-    if (cb.checked) {
-      let price = Number(cb.dataset.price);
-      order += `- ${cb.dataset.name} — ₦${price.toLocaleString()}%0A`;
+  items.forEach(item => {
+    if (item.checked) {
+      let name = item.dataset.name;
+      let price = Number(item.dataset.price);
+
+      message += `- ${name} - ₦${price.toLocaleString()}%0A`;
       total += price;
     }
   });
 
-  order += `%0A------------------%0A`;
-  order += `Total: ₦${total.toLocaleString()}`;
+  message += `%0A--------------------%0A`;
+  message += `Total: ₦${total.toLocaleString()}`;
 
-  window.open(
-    `https://wa.me/2348093823277?text=${order}`,
-    "_blank"
-  );
+  const phone = "2348093823277";
+  const url = `https://wa.me/${phone}?text=${message}`;
+
+  window.open(url, "_blank");
 }
 </script>
-
