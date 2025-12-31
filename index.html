@@ -85,32 +85,30 @@
   }
 </style>
 
+---
+
+## ✅ FINAL, PERMANENT FIX (USE THIS)
+
+### 🔁 DELETE your old `<script>`  
+### ✅ PASTE THIS **ONLY SCRIPT**
+
+```html
 <script>
 const boxes = document.querySelectorAll("input[type='checkbox']");
 const totalSpan = document.getElementById("totalPrice");
 
-function spacedNumber(num) {
-  return String(num).split("").join(" ");
-}
-
 function updateTotal() {
   let total = 0;
-
   boxes.forEach(box => {
     if (box.checked) {
       const price = parseInt(box.dataset.price, 10);
-      if (!isNaN(price)) {
-        total += price;
-      }
+      if (!isNaN(price)) total += price;
     }
   });
-
   totalSpan.textContent = total;
 }
 
-boxes.forEach(box => {
-  box.addEventListener("change", updateTotal);
-});
+boxes.forEach(box => box.addEventListener("change", updateTotal));
 
 function sendWhatsApp() {
   let lines = [];
@@ -122,7 +120,7 @@ function sendWhatsApp() {
       const price = parseInt(box.dataset.price, 10);
 
       if (!isNaN(price)) {
-        lines.push("- " + name + " - NGN " + spacedNumber(price));
+        lines.push(`${name} - NGN ${price}`);
         total += price;
       }
     }
@@ -133,12 +131,14 @@ function sendWhatsApp() {
     return;
   }
 
+  // ✅ WHATSAPP CODE BLOCK (NO FORMATTING BUGS)
   const message =
-    "Hello KLS Apartment Lounge\n\n" +
-    "I want to order:\n" +
-    lines.join("\n") +
-    "\n\n--------------------\n" +
-    "Total: NGN " + spacedNumber(total);
+"```" +
+"\nKLS Apartment Lounge Order\n\n" +
+lines.join("\n") +
+"\n\n--------------------\n" +
+"Total: NGN " + total +
+"\n```";
 
   const encoded = encodeURIComponent(message);
 
