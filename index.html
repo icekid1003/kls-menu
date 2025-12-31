@@ -78,7 +78,8 @@
     Total: NGN <span id="total">0</span>
   </div>
 
-  <button onclick="showReceipt()">Preview Receipt</button>
+  <button onclick="sendReceiptToWhatsApp()">Send Receipt on WhatsApp</button>
+
 </div>
 
 <!-- RECEIPT -->
@@ -89,8 +90,7 @@
   <strong>Total: NGN <span id="receiptTotal"></span></strong>
   <p style="font-size:12px; text-align:center;">Screenshot & send on WhatsApp</p>
 </div>
-
-<script>
+  <script>
 const boxes = document.querySelectorAll("input[type='checkbox']");
 const totalSpan = document.getElementById("total");
 const receipt = document.getElementById("receipt");
@@ -118,7 +118,9 @@ function showReceipt() {
     if (box.checked) {
       const price = parseInt(box.dataset.price, 10);
       if (!isNaN(price)) {
-        receiptItems.innerHTML += `<div>${box.dataset.name} - NGN ${price}</div>`;
+        const line = document.createElement("div");
+        line.textContent = box.dataset.name + " - NGN " + price;
+        receiptItems.appendChild(line);
         total += price;
       }
     }
@@ -132,7 +134,17 @@ function showReceipt() {
   receiptTotal.textContent = total;
   receipt.style.display = "block";
 }
+
+function sendReceiptToWhatsApp() {
+  // Open WhatsApp chat ONLY (no prices in text)
+  const message = "Hello KLS Apartment Lounge, I have sent my order receipt image.";
+  const encoded = encodeURIComponent(message);
+  window.open(
+    "https://wa.me/2348093823277?text=" + encoded,
+    "_blank"
+  );
+}
 </script>
 
-</body>
-</html>
+
+  
