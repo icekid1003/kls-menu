@@ -1,128 +1,85 @@
-<div class="menu-container">
-  <h1>KLS Apartment Lounge</h1>
-  <p>Select drinks and order via WhatsApp</p>
+<h1>KLS Apartment Lounge</h1>
 
-  <form id="orderForm">
+<h2>Spirits</h2>
 
-    <h2>Drinks Menu</h2>
+<label>
+  <input type="checkbox" data-name="Jack Williams" data-price="12000">
+  1. Jack Williams - NGN 12000
+</label><br>
 
-    <label><input type="checkbox" data-name="Origin Bottle" data-price="1500"> Origin Bottle – 1,500</label>
-    <label><input type="checkbox" data-name="Star" data-price="1200"> Star – 1,200</label>
-    <label><input type="checkbox" data-name="Gulder" data-price="1200"> Gulder – 1,200</label>
-    <label><input type="checkbox" data-name="Heineken" data-price="1500"> Heineken – 1,500</label>
-    <label><input type="checkbox" data-name="Trophy" data-price="1200"> Trophy – 1,200</label>
-    <label><input type="checkbox" data-name="Smirnoff Ice" data-price="1500"> Smirnoff Ice – 1,500</label>
-    <label><input type="checkbox" data-name="Big Stout" data-price="1500"> Big Stout – 1,500</label>
-    <label><input type="checkbox" data-name="Small Stout" data-price="1000"> Small Stout – 1,000</label>
-    <label><input type="checkbox" data-name="Budweiser" data-price="1500"> Budweiser – 1,500</label>
-    <label><input type="checkbox" data-name="Origin Can" data-price="1200"> Origin Can – 1,200</label>
-    <label><input type="checkbox" data-name="Hollandia" data-price="800"> Hollandia – 800</label>
-    <label><input type="checkbox" data-name="Bullet Can" data-price="1000"> Bullet Can – 1,500</label>
-    <label><input type="checkbox" data-name="Exotic Drink" data-price="3000"> Exotic Drink – 3,000</label>
+<label>
+  <input type="checkbox" data-name="Gordons" data-price="7000">
+  2. Gordons - NGN 7000
+</label><br>
 
-    <h2>Spirits</h2>
+<label>
+  <input type="checkbox" data-name="Gordons Colour" data-price="9000">
+  3. Gordons Colour - NGN 9000
+</label><br>
 
-    <label><input type="checkbox" data-name="Jack Williams" data-price="12000"> Jack Williams – 12,000</label>
-    <label><input type="checkbox" data-name="Gordons" data-price="7000"> Gordons – 7,000</label>
-    <label><input type="checkbox" data-name="Gordons Colour" data-price="9000"> Gordons Colour – 9,000</label>
-    <label><input type="checkbox" data-name="Rich Man" data-price="6000"> Rich Man – 6,000</label>
-    <label><input type="checkbox" data-name="Fonda Real" data-price="6000"> Fonda Real – 6,000</label>
-    <label><input type="checkbox" data-name="Majesty" data-price="7000"> Majesty – 7,000</label>
-    <label><input type="checkbox" data-name="Martell VSOP" data-price="55000"> Martell VSOP – 55,000</label>
-    <label><input type="checkbox" data-name="Martell Blue Swift" data-price="60000"> Martell Blue Swift – 60,000</label>
+<label>
+  <input type="checkbox" data-name="Rich Man" data-price="6000">
+  4. Rich Man - NGN 6000
+</label><br>
 
-    <h2>Soft & Energy Drinks</h2>
+<label>
+  <input type="checkbox" data-name="Fonda Real" data-price="6000">
+  5. Fonda Real - NGN 6000
+</label><br>
 
-    <label><input type="checkbox" data-name="Sierra" data-price="1000"> Sierra – 1,000</label>
-    <label><input type="checkbox" data-name="Red Bull" data-price="1500"> Red Bull – 1,500</label>
-    <label><input type="checkbox" data-name="Cranberry" data-price="1000"> Cranberry – 1,000</label>
-    <label><input type="checkbox" data-name="Water" data-price="500"> Water – 500</label>
+<label>
+  <input type="checkbox" data-name="Majesty" data-price="7000">
+  6. Majesty - NGN 7000
+</label><br>
 
-<div class="menu">
-  <h1>KLS Apartment Lounge</h1>
+<label>
+  <input type="checkbox" data-name="Martell VSOP" data-price="55000">
+  7. Martell VSOP - NGN 55000
+</label><br>
 
-  <label>
-    <input type="checkbox" data-name="Origin Bottle" data-price="1500">
-    1. Origin Bottle - NGN 1500
-  </label>
+<label>
+  <input type="checkbox" data-name="Martell Blue Swift" data-price="60000">
+  8. Martell Blue Swift - NGN 60000
+</label>
 
-  <label>
-    <input type="checkbox" data-name="Gulder" data-price="1200">
-    2. Gulder - NGN 1200
-  </label>
+<hr>
 
-  <label>
-    <input type="checkbox" data-name="Rich Man" data-price="6000">
-    3. Rich Man - NGN 6000
-  </label>
+<h2>Soft & Energy Drinks</h2>
 
-  <label>
-    <input type="checkbox" data-name="Sierra" data-price="1000">
-    4. Sierra - NGN 1000
-  </label>
+<label>
+  <input type="checkbox" data-name="Sierra" data-price="1000">
+  9. Sierra - NGN 1000
+</label><br>
 
-  <h3>Total: NGN <span id="total">0</span></h3>
+<label>
+  <input type="checkbox" data-name="Red Bull" data-price="1500">
+  10. Red Bull - NGN 1500
+</label><br>
 
-  <button onclick="sendOrder()">Order on WhatsApp</button>
-</div>
+<label>
+  <input type="checkbox" data-name="Cranberry" data-price="1000">
+  11. Cranberry - NGN 1000
+</label><br>
 
-<style>
-  body {
-    background: #000;
-    color: #fff;
-    font-family: Arial, sans-serif;
-    padding: 20px;
-  }
-  .menu-container {
-    max-width: 600px;
-    margin: auto;
-    background: #111;
-    padding: 20px;
-    border-radius: 10px;
-  }
-  h1, h2 {
-    text-align: center;
-    color: gold;
-  }
-  label {
-    display: block;
-    padding: 6px 0;
-  }
-  .total {
-    margin: 15px 0;
-    text-align: center;
-    font-size: 18px;
-  }
-  button {
-    width: 100%;
-    padding: 15px;
-    background: green;
-    color: white;
-    border: none;
-    font-size: 18px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-</style>
+<label>
+  <input type="checkbox" data-name="Water" data-price="500">
+  12. Water - NGN 500
+</label>
 
----
+<hr>
 
-## ✅ FINAL, PERMANENT FIX (USE THIS)
-
-### 🔁 DELETE your old `<script>`  
-### ✅ PASTE THIS **ONLY SCRIPT**
-
-```html
+<h3>Total: NGN <span id="total">0</span></h3>
+<button onclick="sendOrder()">Order on WhatsApp</button>
 <script>
-const checkboxes = document.querySelectorAll("input[type='checkbox']");
+const boxes = document.querySelectorAll("input[type='checkbox']");
 const totalSpan = document.getElementById("total");
 
-function calculateTotal() {
+function updateTotal() {
   let total = 0;
 
-  checkboxes.forEach(box => {
+  boxes.forEach(box => {
     if (box.checked) {
-      const price = Number(box.dataset.price);
+      const price = parseInt(box.dataset.price, 10);
       if (!isNaN(price)) {
         total += price;
       }
@@ -132,18 +89,18 @@ function calculateTotal() {
   totalSpan.textContent = total;
 }
 
-checkboxes.forEach(box => {
-  box.addEventListener("change", calculateTotal);
+boxes.forEach(box => {
+  box.addEventListener("change", updateTotal);
 });
 
 function sendOrder() {
   let message = "KLS Apartment Lounge Order\n\n";
   let total = 0;
 
-  checkboxes.forEach(box => {
+  boxes.forEach(box => {
     if (box.checked) {
       const name = box.dataset.name;
-      const price = Number(box.dataset.price);
+      const price = parseInt(box.dataset.price, 10);
 
       if (!isNaN(price)) {
         message += "- " + name + " : NGN " + price + "\n";
@@ -153,7 +110,7 @@ function sendOrder() {
   });
 
   if (total === 0) {
-    alert("Please select at least one drink");
+    alert("Please select at least one item");
     return;
   }
 
@@ -169,3 +126,4 @@ function sendOrder() {
 
 
 
+<button onclick="sendOrder()">Order on WhatsApp</button>
