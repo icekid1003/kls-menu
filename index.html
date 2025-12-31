@@ -85,17 +85,19 @@
   }
 </style>
 <script>
-  const boxes = document.querySelectorAll("input[type='checkbox']");
+const boxes = document.querySelectorAll("input[type='checkbox']");
 const totalSpan = document.getElementById("totalPrice");
+
+function spacedNumber(num) {
+  return String(num).split("").join(" ");
+}
 
 function updateTotal() {
   let total = 0;
   boxes.forEach(b => {
     if (b.checked) {
-      const price = String(b.dataset.price).replace(/\D/g, "");
-      if (price !== "") {
-        total += parseInt(price, 10);
-      }
+      const price = parseInt(b.dataset.price, 10);
+      if (!isNaN(price)) total += price;
     }
   });
   totalSpan.textContent = total;
@@ -109,18 +111,18 @@ function sendWhatsApp() {
 
   boxes.forEach(b => {
     if (b.checked) {
-      const name = String(b.dataset.name);
-      const priceStr = String(b.dataset.price).replace(/\D/g, "");
-      if (priceStr !== "") {
-        const price = parseInt(priceStr, 10);
-        lines.push("- " + name + " - NGN " + price);
+      const name = b.dataset.name;
+      const price = parseInt(b.dataset.price, 10);
+
+      if (!isNaN(price)) {
+        lines.push(`- ${name} - NGN ${spacedNumber(price)}`);
         total += price;
       }
     }
   });
 
   if (lines.length === 0) {
-    alert("Select at least one drink");
+    alert("Please select at least one drink");
     return;
   }
 
@@ -129,7 +131,7 @@ function sendWhatsApp() {
     "I want to order:\n" +
     lines.join("\n") +
     "\n\n--------------------\n" +
-    "Total: NGN " + total;
+    "Total: NGN " + spacedNumber(total);
 
   const encoded = encodeURIComponent(message);
   window.open("https://wa.me/2348093823277?text=" + encoded, "_blank");
