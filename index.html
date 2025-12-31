@@ -1,0 +1,150 @@
+<div class="menu-container" id="menu">
+  <h1>KLS Apartment Lounge</h1>
+  <p class="subtitle">Scan • Select • Order via WhatsApp</p>
+
+  <form id="orderForm">
+    <h2>Drinks</h2>
+
+    <label><input type="checkbox" data-name="Origin Bottle" data-price="1500"> Origin Bottle – ₦1,500</label>
+    <label><input type="checkbox" data-name="Star" data-price="1200"> Star – ₦1,200</label>
+    <label><input type="checkbox" data-name="Gulder" data-price="1200"> Gulder – ₦1,200</label>
+    <label><input type="checkbox" data-name="Heineken" data-price="1500"> Heineken – ₦1,500</label>
+    <label><input type="checkbox" data-name="Trophy" data-price="1200"> Trophy – ₦1,200</label>
+    <label><input type="checkbox" data-name="Smirnoff Ice" data-price="1500"> Smirnoff Ice – ₦1,500</label>
+    <label><input type="checkbox" data-name="Big Stout" data-price="1500"> Big Stout – ₦1,500</label>
+    <label><input type="checkbox" data-name="Small Stout" data-price="1000"> Small Stout – ₦1,000</label>
+    <label><input type="checkbox" data-name="Budweiser" data-price="1500"> Budweiser – ₦1,500</label>
+    <label><input type="checkbox" data-name="Origin Can" data-price="1200"> Origin Can – ₦1,200</label>
+    <label><input type="checkbox" data-name="Hollandia" data-price="800"> Hollandia – ₦800</label>
+    <label><input type="checkbox" data-name="Bullet Can" data-price="1000"> Bullet Can – ₦1,000</label>
+    <label><input type="checkbox" data-name="Exotic Drink" data-price="3000"> Exotic – ₦3,000</label>
+
+    <h2>Spirits</h2>
+
+    <label><input type="checkbox" data-name="Jack Williams" data-price="12000"> Jack Williams – ₦12,000</label>
+    <label><input type="checkbox" data-name="Gordons" data-price="7000"> Gordons – ₦7,000</label>
+    <label><input type="checkbox" data-name="Gordons Colour" data-price="9000"> Gordons Colour – ₦9,000</label>
+    <label><input type="checkbox" data-name="Rich Man" data-price="6000"> Rich Man – ₦6,000</label>
+    <label><input type="checkbox" data-name="Fonda Real" data-price="6000"> Fonda Real – ₦6,000</label>
+    <label><input type="checkbox" data-name="Majesty" data-price="7000"> Majesty – ₦7,000</label>
+    <label><input type="checkbox" data-name="Martell VSOP" data-price="55000"> Martell VSOP – ₦55,000</label>
+    <label><input type="checkbox" data-name="Martell Blue Swift" data-price="60000"> Martell Blue Swift – ₦60,000</label>
+
+    <h2>Energy & Soft Drinks</h2>
+
+    <label><input type="checkbox" data-name="Sierra" data-price="1000"> Sierra – ₦1,000</label>
+    <label><input type="checkbox" data-name="Red Bull" data-price="1500"> Red Bull – ₦1,500</label>
+    <label><input type="checkbox" data-name="Cranberry" data-price="1000"> Cranberry – ₦1,000</label>
+    <label><input type="checkbox" data-name="Water" data-price="500"> Water – ₦500</label>
+
+    <h2>Food</h2>
+
+    <label><input type="checkbox" data-name="Big Fish & Chips" data-price="6000"> Big Fish & Chips – ₦6,000</label>
+    <label><input type="checkbox" data-name="Medium Fish & Chips" data-price="4000"> Medium Fish & Chips – ₦4,000</label>
+    <label><input type="checkbox" data-name="Small Fish & Chips" data-price="3000"> Small Fish & Chips – ₦3,000</label>
+    <label><input type="checkbox" data-name="Barbecue" data-price="5000"> Barbecue – ₦5,000</label>
+    <label><input type="checkbox" data-name="Croaker Fish" data-price="7000"> Croaker – ₦7,000</label>
+
+    <div class="total">
+      <strong>Total: ₦<span id="totalPrice">0</span></strong>
+    </div>
+
+    <button type="button" onclick="sendWhatsApp()">Order on WhatsApp</button>
+  </form>
+
+  <div class="qr-section">
+    <h2>Scan to Order</h2>
+    <img 
+      src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://codepen.io/Emeka-Kelly"
+      alt="KLS Apartment Lounge QR Code"
+    />
+    <p>Scan to open menu & order</p>
+  </div>
+</div>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #000;
+    color: #fff;
+    margin: 0;
+    padding: 20px;
+  }
+  .menu-container {
+    max-width: 600px;
+    margin: auto;
+    background: #111;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  h1, h2 {
+    text-align: center;
+    color: gold;
+  }
+  .subtitle {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  label {
+    display: block;
+    padding: 6px 0;
+  }
+  .total {
+    margin: 15px 0;
+    font-size: 18px;
+    text-align: center;
+  }
+  button {
+    width: 100%;
+    padding: 15px;
+    background: green;
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .qr-section {
+    text-align: center;
+    margin-top: 30px;
+  }
+  @media print {
+    button {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  const totalPrice = document.getElementById('totalPrice');
+
+  checkboxes.forEach(cb => {
+    cb.addEventListener('change', calculateTotal);
+  });
+
+  function calculateTotal() {
+    let total = 0;
+    checkboxes.forEach(cb => {
+      if (cb.checked) {
+        total += Number(cb.dataset.price);
+      }
+    });
+    totalPrice.textContent = total.toLocaleString();
+  }
+
+  function sendWhatsApp() {
+    let order = "Hello KLS Apartment Lounge, I want to order:%0A";
+    let total = 0;
+
+    checkboxes.forEach(cb => {
+      if (cb.checked) {
+        order += `- ${cb.dataset.name} (₦${cb.dataset.price})%0A`;
+        total += Number(cb.dataset.price);
+      }
+    });
+
+    order += `%0ATotal: ₦${total.toLocaleString()}`;
+    window.open(`https://wa.me/2348093823277?text=${order}`, "_blank");
+  }
+</script>
