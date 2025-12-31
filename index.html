@@ -83,13 +83,41 @@
 </div>
 
 <!-- RECEIPT -->
-<div id="receipt" style="display:none; background:#fff; color:#000; padding:20px; max-width:320px; margin:20px auto; font-family:Arial;">
-  <h3 style="text-align:center;">KLS Apartment Lounge</h3>
-  <div id="receiptItems"></div>
+<div id="receipt" style="
+  display:none;
+  background:#fff;
+  color:#000;
+  padding:20px;
+  max-width:320px;
+  margin:30px auto;
+  font-family:Arial;
+  border-radius:10px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.3);
+">
+  <h3 style="text-align:center; margin:0;">
+    KLS Apartment Lounge
+  </h3>
+
+  <p style="text-align:center; font-size:12px; margin:5px 0;">
+    Drinks Receipt
+  </p>
+
   <hr>
-  <strong>Total: NGN <span id="receiptTotal"></span></strong>
-  <p style="font-size:12px; text-align:center;">Screenshot & send on WhatsApp</p>
+
+  <div id="receiptItems" style="font-size:14px;"></div>
+
+  <hr>
+
+  <p style="font-size:18px; font-weight:bold; text-align:center;">
+    Total: NGN <span id="receiptTotal"></span>
+  </p>
+
+  <p style="font-size:11px; text-align:center; color:#555;">
+    Screenshot & send on WhatsApp
+  </p>
 </div>
+
+  
   <script>
 const boxes = document.querySelectorAll("input[type='checkbox']");
 const totalSpan = document.getElementById("total");
