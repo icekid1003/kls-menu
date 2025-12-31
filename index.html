@@ -84,6 +84,7 @@
     cursor: pointer;
   }
 </style>
+
 <script>
 const boxes = document.querySelectorAll("input[type='checkbox']");
 const totalSpan = document.getElementById("totalPrice");
@@ -94,28 +95,34 @@ function spacedNumber(num) {
 
 function updateTotal() {
   let total = 0;
-  boxes.forEach(b => {
-    if (b.checked) {
-      const price = parseInt(b.dataset.price, 10);
-      if (!isNaN(price)) total += price;
+
+  boxes.forEach(box => {
+    if (box.checked) {
+      const price = parseInt(box.dataset.price, 10);
+      if (!isNaN(price)) {
+        total += price;
+      }
     }
   });
+
   totalSpan.textContent = total;
 }
 
-boxes.forEach(b => b.addEventListener("change", updateTotal));
+boxes.forEach(box => {
+  box.addEventListener("change", updateTotal);
+});
 
 function sendWhatsApp() {
   let lines = [];
   let total = 0;
 
-  boxes.forEach(b => {
-    if (b.checked) {
-      const name = b.dataset.name;
-      const price = parseInt(b.dataset.price, 10);
+  boxes.forEach(box => {
+    if (box.checked) {
+      const name = box.dataset.name;
+      const price = parseInt(box.dataset.price, 10);
 
       if (!isNaN(price)) {
-        lines.push(`- ${name} - NGN ${spacedNumber(price)}`);
+        lines.push("- " + name + " - NGN " + spacedNumber(price));
         total += price;
       }
     }
@@ -134,7 +141,11 @@ function sendWhatsApp() {
     "Total: NGN " + spacedNumber(total);
 
   const encoded = encodeURIComponent(message);
-  window.open("https://wa.me/2348093823277?text=" + encoded, "_blank");
+
+  window.open(
+    "https://wa.me/2348093823277?text=" + encoded,
+    "_blank"
+  );
 }
 </script>
 
